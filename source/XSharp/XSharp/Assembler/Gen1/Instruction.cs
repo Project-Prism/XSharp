@@ -77,7 +77,13 @@ namespace XSharp.Assembler
                 xMnemonic = string.Empty;
             }
 
-            defaultMnemonicsCache.Add(type, xMnemonic);
+            lock (defaultMnemonicsCache)
+            {
+                if (!defaultMnemonicsCache.ContainsKey(type))
+                {
+                    defaultMnemonicsCache.Add(type, xMnemonic);
+                }
+            }
             return xMnemonic;
         }
 
